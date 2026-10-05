@@ -1,0 +1,52 @@
+Experiment 2: Arithmetic Calculator in Docker
+Objective: Python calculator inside Docker.
+Build a simple arithmetic calculator app using Python.
+Dockerize the app and run it inside a container.
+
+Steps: 1. calculator.py
+def calculator():
+    print("Simple Arithmetic Calculator")
+    a = float(input("Enter first number: "))
+    b = float(input("Enter second number: "))
+    print("Select operation:\n1. Add\n2. Subtract\n3. Multiply\n4. Divide")
+    choice = input("Enter choice (1/2/3/4): ")
+    if choice == '1':
+        print(f"Result: {a + b}")
+    elif choice == '2':
+        print(f"Result: {a - b}")
+    elif choice == '3':
+        print(f"Result: {a * b}")
+    elif choice == '4':
+        if b != 0:
+            print(f"Result: {a / b}")
+        else:
+            print("Cannot divide by zero!")
+
+    else:
+        print("Invalid choice!")
+if __name__ == "__main__":
+    calculator()
+Step:Dokerfile
+
+FROM python:3.10-slim
+WORKDIR /calcualtor
+COPY . /calculator
+CMD ["python", "calculator.py"]
+Build the Docker Image
+
+Open a terminal, go to the folder containing the two files, and run:
+> docker build -t arithmetic-calculator .
+
+Run the Container (Interactive) docker 
+rit@rit:~/hello$ docker run -it calcualtor-docker 
+Simple Arithmetic Calculator
+Enter first number: 1
+Enter second number: 2
+Select operation:
+1. Add
+2. Subtract
+3. Multiply
+4. Divide
+Enter choice (1/2/3/4): 1
+Result: 3.0
+rit@rit:~/hello$ 
