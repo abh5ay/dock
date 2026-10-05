@@ -1,0 +1,52 @@
+Experiment 5-Te create a Chart-CSV Bar Chart
+Objective:
+Read CSV and display console bar chart.
+
+Python File: app.py:
+import csv
+
+def read_csv(filename): students = []
+with open(filename, newline='') as csvfile: 
+reader = csv.DictReader(csvfile)
+for row in reader:students.append((row['Name'], int(row['Marks']))) return students
+def draw_bar_chart(data):
+print("Student Marks Visualization\n") 
+max_name_len = max(len(name) 
+for name, _ in data) 
+max_mark = max(mark for _, mark in data)
+
+for name, mark in data:
+bar = '█' * (mark * 50 // max_mark) # scale to max 50 chars
+print(f"{name.ljust(max_name_len)} | {bar} {mark}")
+
+if   name  == "  main  ":
+students = read_csv("students.csv") draw_bar_chart(students)
+Dockerfile:
+FROM python:3.12-slim
+WORKDIR /app
+COPY app.py .
+COPY students.csv .
+CMD ["python", "app.py"]
+
+
+Create Student.csv:
+rit@rit:~/chart$ nano students.csv
+                           
+Name,Marks
+Rahul,80
+Priya,90
+Anil,70
+Sneha,95
+
+Note:Create a students.csv file and save it in folder chart
+
+Create Docker Image:
+rit@rit:~/chart$ docker build -t student-chart .
+Run the Container (Interactive Mode):
+rit@rit:~/chart$ docker run --rm student-chart
+Output:
+Student Marks Visualization
+Rahul | ██████████████████████████████████████████ 80
+Priya | ███████████████████████████████████████████████ 90
+Anil  | ████████████████████████████████████ 70
+Sneha | ██████████████████████████████████████████████████ 95
