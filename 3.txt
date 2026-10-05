@@ -1,0 +1,43 @@
+Experiment 3: CPU Delay – CPU Intensive Task
+Objective:
+    Demonstrate CPU usage with Docker.
+
+
+
+
+
+
+
+
+
+Steps:
+Create a CPU load Python script (cpuload.py):
+import time
+print("Starting CPU-intensive task...")
+start = time.time()
+x = 0
+while time.time() - start < 30:
+    for i in range(1000000):
+        x += i * i
+print("Task completed!")
+
+
+Step :Doker Image
+FROM python:3.10-slim
+WORKDIR /cpudelay
+COPY . /cpudelay
+CMD ["python", "cpudelay.py"]
+
+
+Build Docker Image
+In the terminal, go to the folder containing these files and run:
+->docker build -t cpudelay-docker .
+Run the Container
+Without CPU limit (uses full CPU available):
+docker run -it cpudelay-docker
+rit@rit:~/hello$ docker run -it cpudelay-docker
+Starting CPU-intensive task...
+Task completed!
+
+Monitor CPU Usage Open another terminal and run: top
+
