@@ -1,0 +1,38 @@
+      Create a simple Python program and run it inside a Docker container.
+Experiment-1: Create Docker Image
+->Login:RIT-ADMIN
+Password: rit@2025
+
+Step: Create a folder Hello-world in Home folder:gedit app.py
+->open Terminal
+->cd hello-world
+→gedit app.py
+
+## 1. Create a simple Python program Make a 
+
+print("Hello, World from Docker!")
+
+
+Step. Write a Dockerfile
+Create a file named `Dockerfile` in the same folder:→gedit Dockerfile
+
+FROM python:3.10-slim
+
+WORKDIR /app
+
+COPY . /app
+
+CMD ["python", "app.py"]
+
+Step Build the Docker image
+Open a terminal in the folder and run:
+
+>docker build -t hello-docker .Step 4. Run the container
+Now run the image:
+
+> docker run hello-docker
+
+ Output should be:
+
+
+Hello, World from Docker!
