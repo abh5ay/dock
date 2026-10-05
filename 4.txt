@@ -1,0 +1,35 @@
+Experiment 4: Container Program – Factorial Calculator
+Objective
+To create a Python program that calculates the factorial of a number.
+To dockerize the program and run it inside a container.
+
+Steps
+
+Create Python Program (factorial.py)
+
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n - 1)
+
+
+n = int(input("Enter a number: "))
+result = factorial(n)
+
+print("Factorial of", n, "is", result)
+Create Dockerfile
+FROM python:3.10-slim
+WORKDIR /factorial
+COPY . /factorial
+CMD ["python", "factorial.py"]
+Build the Docker Image
+docker build -t factorial-calculator .
+Run the Container (Interactive Mode) docker run -it factorial-calculator
+Expected Outcome
+When the container starts, it will prompt for input:
+
+Enter a number: 5 Factorial of 5 is 120
+rit@rit:~/hello$ docker run -it hello-docker
+Enter a number: 5
+Factorial of 5 is 120
