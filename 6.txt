@@ -1,0 +1,30 @@
+Experiment 6: Environment Variables Printer
+Objective:
+Print environment variables passed to container.
+Python File:env.py
+import os
+
+print("=== Environment Variables Passed to Container ===\n")
+
+for key, value in os.environ.items():
+    print(f"{key} = {value}")
+
+Dockerfile
+FROM python:3.10-slim
+WORKDIR /app
+COPY env.py .
+CMD ["python", "env.py"]
+
+rit@rit:~/Env$ docker build -t env-calculator . 
+rit@rit:~/Env$ docker run -it env-calculator
+
+=== Environment Variables Passed to Container ===
+
+PATH = /usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+HOSTNAME = 88fb1e9997e0
+TERM = xterm
+LANG = C.UTF-8
+GPG_KEY = A035C8C19219BA821ECEA86B64E628F8D684696D
+PYTHON_VERSION = 3.10.19
+PYTHON_SHA256 = c8f4a596572201d81dd7df91f70e177e19a70f1d489968b54b5fbbf29a97c076
+HOME = /root
